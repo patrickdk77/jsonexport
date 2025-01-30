@@ -45,12 +45,12 @@
 
 # Usage
 
-Installation command is `npm install jsonexport`.
+Installation command is `npm install @patrickdk77/jsonexport`.
 
 Run tests with `npm test`.
 
 ```javascript
-const jsonexport = require('jsonexport');
+const jsonexport = require('@patrickdk77/jsonexport');
 
 jsonexport({lang: 'Node.js', module: 'jsonexport'}, {rowDelimiter: '|'}, function(err, csv){
     if (err) return console.error(err);
@@ -60,7 +60,7 @@ jsonexport({lang: 'Node.js', module: 'jsonexport'}, {rowDelimiter: '|'}, functio
 
 ## CLI
 
-Global installation command is `npm install -g jsonexport`.
+Global installation command is `npm install -g @patrickdk77/jsonexport`.
 
 Convert JSON to CSV using `cat data.json | jsonexport` or `jsonexport data.json`
 
@@ -73,18 +73,18 @@ Use the code in the folder named **dist** to run jsonexport in the browser
 
 Webpack
 ```javascript
-const jsonexport = require("jsonexport/dist")
+const jsonexport = require("@patrickdk77/jsonexport/dist")
 ```
 
 Typescript
 ```javascript
-import * as jsonexport from "jsonexport/dist"
+import * as jsonexport from "@patrickdk77/jsonexport/dist"
 ```
 
 ## Stream
 
 ```javascript
-const jsonexport = require('jsonexport');
+const jsonexport = require('@patrickdk77/jsonexport');
 const fs = require('fs');
 
 const reader = fs.createReadStream('data.json');
@@ -96,7 +96,7 @@ reader.pipe(jsonexport()).pipe(writer);
 ## Promise
 
 ```javascript
-const jsonexport = require('jsonexport')
+const jsonexport = require('@patrickdk77/jsonexport')
 try {
     const csv = await jsonexport({lang: 'Node.js', module: 'jsonexport'}, {rowDelimiter: '|'});
 } catch (err) {
@@ -111,7 +111,7 @@ try {
 #### Code
 
 ```javascript
-const jsonexport = require('jsonexport');
+const jsonexport = require('@patrickdk77/jsonexport');
 
 const contacts = [{
     name: 'Bob',
@@ -148,7 +148,7 @@ David,Martin
 #### Code
 
 ```javascript
-const jsonexport = require('jsonexport');
+const jsonexport = require('@patrickdk77/jsonexport');
 
 const contacts = [{
    name: 'Bob',
@@ -198,7 +198,7 @@ David,Martin,,,,,dmartin
 #### Code
 
 ```javascript
-const jsonexport = require('jsonexport');
+const jsonexport = require('@patrickdk77/jsonexport');
 
 const stats = {
     cars: 12,
@@ -225,7 +225,7 @@ traffic,slow
 #### Code
 
 ```javascript
-const jsonexport = require('jsonexport');
+const jsonexport = require('@patrickdk77/jsonexport');
 
 const stats = {
     cars: 12,
@@ -287,7 +287,7 @@ In order to get the most of out of this module, you can customize many parameter
 Define types by constructors and what function to run when that type is matched
 
 ```javascript
-const jsonexport = require('jsonexport');
+const jsonexport = require('@patrickdk77/jsonexport');
 
 //data
 const contacts = {
