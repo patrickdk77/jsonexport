@@ -1,6 +1,7 @@
 ## Change log
 ----------------------
-- v3.2.1 - fixup dependencies, remove var
+- v3.2.2 - fixup dependencies, remove var
+- v3.2.1 - add quoted string support
 - v3.2.0 - fix value 0 from being omitted
 - v3.0.1 - fix column values with zero (0) are being replaced with "" (sregger)
 - v3.0.0 - Promise API & fillTopRow
