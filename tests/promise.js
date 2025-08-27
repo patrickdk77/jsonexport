@@ -1,10 +1,9 @@
 /* jshint evil: true */
 /* jshint ignore: start */
 
-var chai = require('chai');
-var expect = chai.expect;
-var jsonexport = require('../lib/index');
-var os = require('os');
+const os = require('node:os');
+const {expect} = require('chai');
+const jsonexport = require('../lib/index');
 
 describe('Promise', () => {
   it('resolve', async () => {

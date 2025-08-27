@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 const jsonexport = require('../lib/index.js');
-const fs = require('fs');
+const fs = require('node:fs');
 
 const stdin = process.stdin;
 const stdout = process.stdout;

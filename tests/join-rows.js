@@ -2,10 +2,9 @@
 /* jshint esversion: 6 */
 /* jshint -W030 */
 
-var chai = require('chai');
-var expect = chai.expect;
-var joinRows = require('../lib/core/join-rows');
-var os = require('os');
+const os = require('node:os');
+const {expect} = require('chai');
+const joinRows = require('../lib/core/join-rows');
 
 describe('joinRows', () => {
   it('should throw with no params', () => {

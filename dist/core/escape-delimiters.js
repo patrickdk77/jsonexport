@@ -8,33 +8,21 @@
    another double quote.
    For example: "aaa","b""bb","ccc"
 */
-
 module.exports = function escapedDelimiters(textDelimiter, rowDelimiter, forceTextDelimiter, forceTextStrings) {
-  var endOfLine = '\n';
-
+  let endOfLine = '\n';
   if (typeof textDelimiter !== 'string') {
     throw new TypeError('Invalid param "textDelimiter", must be a string.');
   }
-
   if (typeof rowDelimiter !== 'string') {
     throw new TypeError('Invalid param "rowDelimiter", must be a string.');
   }
-
-  var textDelimiterRegex = new RegExp("\\" + textDelimiter, 'g');
-  var escapedDelimiter = textDelimiter + textDelimiter;
-
-  var enclosingCondition = textDelimiter === '"' ? function (value) {
-    return value.indexOf(rowDelimiter) >= 0 || value.indexOf(endOfLine) >= 0 || value.indexOf('"') >= 0;
-  } : function (value) {
-    return value.indexOf(rowDelimiter) >= 0 || value.indexOf(endOfLine) >= 0;
-  };
-
+  let textDelimiterRegex = new RegExp("\\" + textDelimiter, 'g');
+  let escapedDelimiter = textDelimiter + textDelimiter;
+  const enclosingCondition = textDelimiter === '"' ? value => value.indexOf(rowDelimiter) >= 0 || value.indexOf(endOfLine) >= 0 || value.indexOf('"') >= 0 : value => value.indexOf(rowDelimiter) >= 0 || value.indexOf(endOfLine) >= 0;
   return function (value) {
-    var force = forceTextDelimiter;
+    let force = forceTextDelimiter;
     if (forceTextStrings && typeof value === 'string') force = true;
-
     if (force) value = "" + value;
-
     if (!value.replace) return value;
     // Escape the textDelimiters contained in the field
     value = value.replace(textDelimiterRegex, escapedDelimiter);
@@ -43,7 +31,6 @@ module.exports = function escapedDelimiters(textDelimiter, rowDelimiter, forceTe
     if (force || enclosingCondition(value)) {
       value = textDelimiter + value + textDelimiter;
     }
-
     return value;
   };
 };

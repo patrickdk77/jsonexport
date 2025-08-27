@@ -2,11 +2,9 @@
 /* jshint esversion: 6 */
 /* jshint -W030 */
 
-var chai = require('chai');
-var {assert, expect} = require('chai');
-var jsonexport = require('../lib/index');
-var os = require('os');
-
+const os = require('node:os');
+const {assert, expect} = require('chai');
+const jsonexport = require('../lib/index');
 
 const isRemoteTest = process.env.APPVEYOR || process.env.TRAVIS;
 if( isRemoteTest ){
@@ -39,7 +37,7 @@ describe('Object', () => {
   });
 
   it('Github #41 p1',async ()=>{
-    var contacts = [{
+    const contacts = [{
         name: 'Bob',
         lastname: 'Smith',
         status: null,
@@ -56,7 +54,7 @@ describe('Object', () => {
   });
 
   it('Github #41 p2',async ()=>{
-    var contacts = {
+    const contacts = {
       'a' : 'another field',
       'b' : '',
       'c' : 'other field'
@@ -67,7 +65,7 @@ describe('Object', () => {
   });
 
   it('Buffer to String - Github #48',async ()=>{
-    var contacts = {
+    const contacts = {
       '0' : true,
       '1' : [11,22,33],
       '2' : ()=>'bad ace',
@@ -79,7 +77,7 @@ describe('Object', () => {
       }
     };
 
-    var options={
+    const options={
       typeHandlers:{
         Array:function(value,index,parent){
           return 'replaced-array';

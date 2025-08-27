@@ -1,7 +1,7 @@
-var chai = require('chai');
-var expect = chai.expect;
-var jsonexport = require('../lib/index');
-var os = require('os');
+const chai = require('chai');
+const expect = chai.expect;
+const jsonexport = require('../lib/index');
+const os = require('node:os');
 
 describe('Options', () => {
   it('rename', () => {
@@ -251,7 +251,7 @@ describe('Options', () => {
       });
     });
     it('Date', (done) => {
-      var date = new Date();
+      const date = new Date();
       jsonexport({
         a: date,
         b: true

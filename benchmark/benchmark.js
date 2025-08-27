@@ -1,15 +1,15 @@
-var fs = require('fs');
-var util = require('util');
-var Benchmark = require('benchmark');
-var suite = new Benchmark.Suite();
-var jsonexport = require('../lib/index');
+const fs = require('node:fs');
+const util = require('node:util');
+const Benchmark = require('benchmark');
+const suite = new Benchmark.Suite();
+const jsonexport = require('../lib/index');
 // start benchmarking
 suite
 
   .add('jsonexport', {
     'defer': true,
     'fn': function(deferred) {
-      // var data = require('./data.json');
+      // let data = require('./data.json');
       fs.readFile('data.json', function(err, data) {
         data = JSON.parse(data.toString());
         if (err) console.log(err);
@@ -26,8 +26,8 @@ suite
   .add('jsonexport-stream', {
     'defer': true,
     'fn': function(deferred) {
-      var reader = fs.createReadStream('data.json');
-      var writer = fs.createWriteStream('out.csv');
+      const reader = fs.createReadStream('data.json');
+      const writer = fs.createWriteStream('out.csv');
 
       reader.on('error', function(err) {
         console.log(err);
@@ -46,7 +46,7 @@ suite
   })
   // add listeners
   .on('cycle', function(event) {
-    var details = event.target;
+    const details = event.target;
     console.log('Executed benchmark against node module: "%s"', details.name);
     console.log('Count (%d), Cycles (%d), Elapsed (%d sec), Hz (%d ops/sec)\n', details.count, details.cycles, details.times.elapsed, details.hz);
   })

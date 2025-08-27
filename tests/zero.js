@@ -2,9 +2,9 @@
 /* jshint esversion: 6 */
 /* jshint -W030 */
 
-const { assert } = require("chai");
-const jsonexport = require("../lib/index");
-const os = require("os");
+const os = require('node:os');
+const {assert} = require('chai');
+const jsonexport = require('../lib/index');
 
 describe("Zero", () => {
   it("array", async () => {

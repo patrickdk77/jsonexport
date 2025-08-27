@@ -1,8 +1,5 @@
-'use strict';
-
-var EOL = require('./eol');
-var helper = require('./helper');
-
+const EOL = require('./eol');
+const helper = require('./helper');
 module.exports = function joinRows(rows, join) {
   if (!rows || !helper.isArray(rows)) {
     throw new TypeError('Invalid params "rows" for joinRows.' + ' Must be an array of string.');

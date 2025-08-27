@@ -2,11 +2,11 @@
 /* jshint esversion: 6 */
 /* jshint -W030 */
 
-var os = require('os');
-var chai = require('chai');
-var expect = chai.expect;
+const os = require('node:os');
+const {expect} = require('chai');
+const jsonexport = require('../lib/index');
 
-var escapeDelimiters = require('../lib/core/escape-delimiters')('"', '\n', os.EOL);
+const escapeDelimiters = require('../lib/core/escape-delimiters')('"', '\n', os.EOL);
 
 describe('escapeDelimiters', () => {
   const mocks = {
