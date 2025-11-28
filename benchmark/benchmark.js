@@ -51,7 +51,7 @@ suite
     console.log('Count (%d), Cycles (%d), Elapsed (%d sec), Hz (%d ops/sec)\n', details.count, details.cycles, details.times.elapsed, details.hz);
   })
   .on('complete', function() {
-    console.log('Module: "' + this.filter('fastest').pluck('name') + '" wins.');
+    console.log('Module: "' + this.filter('fastest').map('name') + '" wins.');
   })
   // run async
   .run();
