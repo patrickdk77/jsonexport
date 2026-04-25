@@ -133,13 +133,14 @@ class Parser {
     fillRows = function (result) {
       var value = result.value || result.value === 0 ? result.value.toString() : self._options.undefinedString;
       value = self._escape(value);
+      let item = self._escape(result.item);
 
       //Type header;value
       if (self._options.verticalOutput) {
-        var row = [result.item, value];
+        var row = [item, value];
         fileRows.push(row.join(self._options.rowDelimiter));
       } else {
-        horizontalRows[0].push(result.item);
+        horizontalRows[0].push(item);
         horizontalRows[1].push(value);
       }
     };

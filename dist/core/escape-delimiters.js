@@ -18,28 +18,20 @@ module.exports = function escapedDelimiters(textDelimiter, rowDelimiter, forceTe
   }
   let textDelimiterRegex = new RegExp("\\" + textDelimiter, 'g');
   let escapedDelimiter = textDelimiter + textDelimiter;
-
-  // Escape special regex characters in a literal string
-  function escapeRegExp(s) {
-    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  }
-
-  // Build one regex covering all characters that require field quoting.
-  // Compiled once per parser instance; reused for every value.
-  const enclosingParts = [escapeRegExp(rowDelimiter), escapeRegExp(endOfLine)];
-  if (textDelimiter === '"') enclosingParts.push('"');
-  const enclosingRegex = new RegExp(enclosingParts.join('|'));
-  const enclosingCondition = value => enclosingRegex.test(value);
   return function (value) {
     let force = forceTextDelimiter;
     if (forceTextStrings && typeof value === 'string') force = true;
     if (force) value = "" + value;
     if (!value.replace) return value;
-    // Escape the textDelimiters contained in the field
-    value = value.replace(textDelimiterRegex, escapedDelimiter);
+    let hasTextDelimiter = value.indexOf(textDelimiter) >= 0;
 
-    // Escape the whole field if it contains a rowDelimiter or a linebreak or double quote
-    if (force || enclosingCondition(value)) {
+    // Escape the textDelimiters contained in the field
+    if (hasTextDelimiter) {
+      value = value.replace(textDelimiterRegex, escapedDelimiter);
+    }
+
+    // Escape the whole field if it contains a rowDelimiter or a linebreak or textDelimiter
+    if (force || hasTextDelimiter || value.indexOf(rowDelimiter) >= 0 || value.indexOf(endOfLine) >= 0) {
       value = textDelimiter + value + textDelimiter;
     }
     return value;
