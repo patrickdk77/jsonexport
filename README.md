@@ -20,9 +20,7 @@
 
 ✔ **fast** ⚡ 
 
-[Project Page](https://kaue.github.io/jsonexport/)
-
-[Online Demo Page](https://kaue.github.io/jsonexport/demo/)
+[Project Page](https://github.com/patrickdk77/jsonexport/)
 
 <details>
   <summary><b>Table of Contents</b></summary>
