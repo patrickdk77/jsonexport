@@ -8,6 +8,7 @@ class Handler {
 
     // an object of {typeName:(value,index,parent)=>any}
     this._options.typeHandlers = this._options.typeHandlers || {};
+    this._typeKeys = Object.keys(this._options.typeHandlers);
   }
 
   /**
@@ -28,7 +29,7 @@ class Handler {
   castValue(element, item, index, parent) {
     //cast by matching constructor
     const types = this._options.typeHandlers;
-    const typeKeys = Object.keys(types);
+    const typeKeys = this._typeKeys;
     for (let i = 0; i < typeKeys.length; i++) {
       const type = typeKeys[i];
       if (isInstanceOfTypeName(element, type)) {
