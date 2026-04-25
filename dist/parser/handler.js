@@ -16,17 +16,21 @@ class Handler {
    * @returns [{item, value}] result
    */
   _setHeaders(result, item) {
-    let self = this;
     if (!item) return result;
-    return result.map(function (element) {
-      element.item = element.item ? item + self._options.headerPathString + element.item : item;
-      return element;
-    });
+    const sep = this._options.headerPathString;
+    // Mutate in-place - no need to allocate a new array
+    for (let i = 0; i < result.length; i++) {
+      const el = result[i];
+      el.item = el.item ? item + sep + el.item : item;
+    }
+    return result;
   }
   castValue(element, item, index, parent) {
     //cast by matching constructor
     const types = this._options.typeHandlers;
-    for (let type in types) {
+    const typeKeys = Object.keys(types);
+    for (let i = 0; i < typeKeys.length; i++) {
+      const type = typeKeys[i];
       if (isInstanceOfTypeName(element, type)) {
         element = types[type].call(types, element, index, parent);
         break; //first match we move on
@@ -82,7 +86,7 @@ class Handler {
       case 'boolean':
         return [{
           item: item,
-          value: this._handleBoolean.bind(this)(element, item)
+          value: this._handleBoolean(element, item)
         }];
     }
     return this.checkComplex(element, item);
@@ -101,8 +105,8 @@ class Handler {
       var propData = obj[prop];
       //Check the propData type
       var resultCheckType = this.check(propData, prop, prop, obj);
-      //Append to results aka merge results aka array-append-array
-      result = result.concat(resultCheckType);
+      //Append to results in-place to avoid O(n²) allocations
+      Array.prototype.push.apply(result, resultCheckType);
     }
     return result;
   }
@@ -130,8 +134,8 @@ class Handler {
       } else if (resultCheckType.length > 0 && !firstResult.item && firstElementWithoutItem === undefined) {
         firstElementWithoutItem = firstResult;
       }
-      //Append to results
-      result = result.concat(resultCheckType);
+      //Append to results in-place to avoid O(n²) allocations
+      Array.prototype.push.apply(result, resultCheckType);
     }
     return result;
   }

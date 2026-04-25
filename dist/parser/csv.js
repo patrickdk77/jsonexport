@@ -45,7 +45,7 @@ class Parser {
     let fillGaps = (col, index) => col === '' || col === undefined ? lastRow[index] : col;
     for (let row of rows) {
       let missing = this._headers.length - row.length;
-      if (missing > 0) row = row.concat(Array(missing).join(".").split("."));
+      if (missing > 0) row = row.concat(new Array(missing).fill(''));
       if (lastRow && this._options.fillGaps) row = row.map(fillGaps);
       finalRows.push(row.join(this._options.rowDelimiter));
       lastRow = row;
@@ -58,11 +58,18 @@ class Parser {
     let fileRows = [];
     let outputFile;
     let fillRows;
+
+    // O(1) header lookup - kept in sync with _headers throughout parsing
+    let headerIndexMap = new Map();
+    for (let i = 0; i < this._headers.length; i++) {
+      headerIndexMap.set(this._headers[i], i);
+    }
     let getHeaderIndex = function (header) {
-      var index = self._headers.indexOf(header);
-      if (index === -1) {
+      let index = headerIndexMap.get(header);
+      if (index === undefined) {
+        index = self._headers.length;
         self._headers.push(header);
-        index = self._headers.indexOf(header);
+        headerIndexMap.set(header, index);
       }
       return index;
     };
@@ -70,10 +77,16 @@ class Parser {
     //Generate the csv output
     fillRows = function (result) {
       const rows = [];
-      const fillAndPush = row => rows.push(row.map(col => col != null ? col : ''));
+      const fillAndPush = row => {
+        // Convert nulls to '' in-place - avoids allocating a mapped copy per row
+        for (let i = 0; i < row.length; i++) {
+          if (row[i] == null) row[i] = '';
+        }
+        rows.push(row);
+      };
       // initialize the array with empty strings to handle 'unpopular' headers
       const newRow = () => new Array(self._headers.length).fill(null);
-      const emptyRowIndexByHeader = {};
+      const emptyRowIndexByHeader = [];
       let currentRow = newRow();
       for (let element of result) {
         let elementHeaderIndex = getHeaderIndex(element.item);
@@ -95,7 +108,8 @@ class Parser {
       if (currentRow.length > 0) {
         fillAndPush(currentRow);
       }
-      fileRows = fileRows.concat(self._checkRows(rows));
+      const checked = self._checkRows(rows);
+      for (let i = 0; i < checked.length; i++) fileRows.push(checked[i]);
     };
     for (let item of json) {
       //Call checkType to list all items inside this object
