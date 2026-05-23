@@ -66,7 +66,7 @@ const jsonexport = require("@patrickdk77/jsonexport/dist")
 
 Typescript
 ```javascript
-import * as jsonexport from "@patrickdk77/jsonexport/dist"
+import jsonexport from "@patrickdk77/jsonexport/dist"
 ```
 
 ## Stream

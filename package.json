@@ -1,6 +1,6 @@
 {
   "name": "@patrickdk77/jsonexport",
-  "version": "3.3.2",
+  "version": "3.4.0",
   "description": "Makes easy to convert JSON to CSV",
   "main": "./lib/index.js",
   "types": "./dist/types/index.d.ts",
