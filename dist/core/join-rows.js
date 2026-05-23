@@ -1,10 +1,1 @@
-const EOL = require('./eol');
-const helper = require('./helper');
-module.exports = function joinRows(rows, join) {
-  if (!rows || !helper.isArray(rows)) {
-    throw new TypeError('Invalid params "rows" for joinRows.' + ' Must be an array of string.');
-  }
-  //Merge all rows in a single output with the correct End of Line string
-  var r = rows.join(join || EOL || '\n');
-  return r;
-};
+const EOL=require("./eol"),helper=require("./helper");module.exports=function(a,b){if(!a||!helper.isArray(a))throw new TypeError("Invalid params \"rows\" for joinRows. Must be an array of string.");var c=a.join(b||EOL||"\n");return c};

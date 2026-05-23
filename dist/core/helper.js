@@ -1,12 +1,1 @@
-'use strict';
-
-module.exports.isFunction = fn => {
-  var getType = {};
-  return fn && getType.toString.call(fn) === '[object Function]';
-};
-module.exports.isArray = arr => Array.isArray(arr);
-module.exports.isObject = obj => obj instanceof Object;
-module.exports.isString = str => typeof str === 'string';
-module.exports.isNumber = num => typeof num === 'number';
-module.exports.isBoolean = bool => typeof bool === 'boolean';
-module.exports.isDate = date => date instanceof Date;
+"use strict";module.exports.isFunction=a=>{return a&&"[object Function]"==={}.toString.call(a)},module.exports.isArray=a=>Array.isArray(a),module.exports.isObject=a=>a instanceof Object,module.exports.isString=a=>"string"==typeof a,module.exports.isNumber=a=>"number"==typeof a,module.exports.isBoolean=a=>"boolean"==typeof a,module.exports.isDate=a=>a instanceof Date;
