@@ -1,14 +1,27 @@
 {
   "name": "@patrickdk77/jsonexport",
-  "version": "3.4.0",
+  "version": "3.4.1",
   "description": "Makes easy to convert JSON to CSV",
   "main": "./lib/index.js",
+  "module": "./lib/index.mjs",
   "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.js",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./dist": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
   "scripts": {
-    "test": "mocha tests/*.js tests/**/*.js",
+    "test": "mocha tests/*.js tests/**/*.js && mocha tests/esm.mjs",
     "lint": "./node_modules/.bin/jshint ./lib/index.js",
     "build:dist": "npm-run-all build:dist:js build:dist:overwrite build:types",
-    "build:dist:js": "babel lib --out-dir dist",
+    "build:dist:js": "babel lib --out-dir dist --ignore '**/index.mjs'",
     "build:dist:overwrite": "node ./bin/builddist.js",
     "build:types": "./node_modules/.bin/tsc",
     "deploy": "npm run build:dist && npm publish"

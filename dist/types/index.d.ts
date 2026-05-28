@@ -1,4 +1,4 @@
-export default jsonexport;
+export = jsonexport;
 /**
  * Main function that converts json to csv
  *

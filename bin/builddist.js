@@ -28,5 +28,15 @@ function overwriteStream(){
   fs.writeFileSync(outFilePath, fileString)
 }
 
+function writeDistEsmEntry() {
+  const fileString = `import jsonexport from './index.js';
+
+export default jsonexport;
+`;
+  const outFilePath = path.join(__dirname, '../dist/index.mjs');
+  fs.writeFileSync(outFilePath, fileString);
+}
+
 overwriteEol()
 overwriteStream()
+writeDistEsmEntry()
